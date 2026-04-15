@@ -11,7 +11,11 @@ def home():
 def emotionDetector():
     text_to_analyze = str(request.args.get('textToAnalyze'))
     emotions = emotion_detector(text_to_analyze)
-    response = f"For the given statement, the system response is 'anger': {emotions['anger']}, 'disgust': {emotions['disgust']}, 'fear': {emotions['fear']}, 'joy': {emotions['joy']} and 'sadness': {emotions['sadness']}. The dominant emotion is {emotions['dominant_emotion']}."
+
+    if emotions['dominant_emotion'] is None:
+        response = "Invalid text! Please try again!."
+    else:
+        response = f"For the given statement, the system response is 'anger': {emotions['anger']}, 'disgust': {emotions['disgust']}, 'fear': {emotions['fear']}, 'joy': {emotions['joy']} and 'sadness': {emotions['sadness']}. The dominant emotion is {emotions['dominant_emotion']}."
 
     return response
 
